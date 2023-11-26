@@ -1,3 +1,4 @@
+# train_classifier.py
 import sys
 import re
 import pickle
@@ -5,8 +6,8 @@ import numpy as np
 import pandas as pd
 from sqlalchemy import create_engine
 import nltk
-from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
 from nltk.stem.wordnet import WordNetLemmatizer
 from sklearn.metrics import classification_report
 from sklearn.multioutput import MultiOutputClassifier
@@ -17,10 +18,12 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline, FeatureUnion
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
-from sklearn.metrics import make_scorer, accuracy_score, f1_score, fbeta_score
 from scipy.stats import hmean
 from scipy.stats.mstats import gmean
 import joblib
+
+# Import the StartingVerbExtractor class from the new module
+from app.starting_verb_extractor import StartingVerbExtractor
 
 nltk.download(["punkt", "wordnet", "stopwords"])
 nltk.download(["averaged_perceptron_tagger"])
