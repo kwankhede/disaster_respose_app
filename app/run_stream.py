@@ -1,15 +1,17 @@
-# run_stream.py
+import os
+import sys
 import streamlit as st
 import pickle
-from sklearn.feature_extraction.text import CountVectorizer
 from text_processing import tokenize
+from starting_verb_extractor import StartingVerbExtractor
 
-# from train_classifier import StartingVerbExtractor
-
+# Add the parent directory of the script to the Python path
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # Load the trained model using pickle
 with open("models/classifier.pkl", "rb") as model_file:
     loaded_model = pickle.load(model_file)
+
 
 category_names = [
     "related",
