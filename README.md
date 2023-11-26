@@ -10,7 +10,7 @@ In the Project Workspace, you'll find a data set containing real messages that w
 
 - This project includes a web app where an emergency worker can input a new message and get classification results in several categories. The web app also displays visualizations of the data. This project shows off my software skills, including my ability to create basic data pipelines and write clean, organized code!
 
-## Appl link - https://disaster-response-app-kw.streamlit.app/
+## App link - https://disaster-response-app-kw.streamlit.app/
 
 
 ## Project Components
