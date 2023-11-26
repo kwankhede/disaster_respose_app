@@ -87,7 +87,7 @@ def main():
 
     classify_button = st.button("Classify")
     # Display the examples in a text area
-    st.text_area("Sample input examples:", value=example_inputs, height=200)
+
     # Add a "Classify" button
 
     if classify_button:
@@ -116,6 +116,8 @@ def main():
                 # st.success("Categories: " + ", ".join(selected_categories))
             else:
                 st.warning("No categories predicted for the given input.")
+
+    st.text_area("Sample input examples:", value=example_inputs, height=200)
 
 
 if __name__ == "__main__":
