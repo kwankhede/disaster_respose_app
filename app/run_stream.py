@@ -120,5 +120,10 @@ def main():
     st.text_area("Sample input examples:", value=example_inputs, height=200)
 
 
+# Add footer
+    st.markdown("<br><br> <br><br> <br><br>", unsafe_allow_html=True)  # Adding space
+    st.markdown("Made by Kapil Wankhede (Sanghamitra Tech)")
+
+
 if __name__ == "__main__":
     main()
