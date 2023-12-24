@@ -1,13 +1,8 @@
-import os
-import sys
 import streamlit as st
 import pickle
 from text_processing import tokenize
 from starting_verb_extractor import StartingVerbExtractor
 import time
-
-# Add the parent directory of the script to the Python path
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # Load the trained model using pickle
 with open("models/classifier.pkl", "rb") as model_file:
@@ -52,77 +47,77 @@ category_names = [
     "direct_report",
 ]
 
+# Function to check if 5 hours have passed
+@st.cache(ttl=60 * 60 * 5)  # 60 seconds * 60 minutes * 5 hours
+def check_time():
+    return time.time()
+
 # Streamlit app
 def main():
-    # Load image
-    image_path = "app/ai_kapil.png"
-    st.image(image_path, use_column_width=True)
+    # Check if 5 hours have passed, if yes, rerun the code
+    if check_time():
+        st.title("Disaster Message Classifier")
 
-    # Problem statement
-    st.markdown(
-        """
-        This app predicts categories for disaster-related messages using a trained machine learning model.
-        Enter a message, and click the 'Classify' button to see predicted categories.
+        # Load image
+        image_path = "app/ai_kapil.png"
+        st.image(image_path, use_column_width=True)
 
-        ### How It Works:
-        - **Enter a Message:** Type a message related to disaster response.
-        - **Click 'Classify':** The app uses a trained model to predict relevant categories.
-        - **View Predictions:** See the predicted categories based on the input message.
+        # Problem statement
+        st.markdown(
+            """
+            This app predicts categories for disaster-related messages using a trained machine learning model.
+            Enter a message, and click the 'Classify' button to see predicted categories.
 
-        The goal is to assist disaster response teams in quickly assessing and acting upon incoming messages.
-        """
-    )
+            ### How It Works:
+            - **Enter a Message:** Type a message related to disaster response.
+            - **Click 'Classify':** The app uses a trained model to predict relevant categories.
+            - **View Predictions:** See the predicted categories based on the input message.
 
-    # Get user input
-    user_input = st.text_input("Enter a message:")
+            The goal is to assist disaster response teams in quickly assessing and acting upon incoming messages.
+            """
+        )
 
-    # Examples as a text area
-    example_inputs = (
-        "1. Please, we need tents and water. We are in Silo, Thank you!\n"
-        "2. I am in Croix-des-Bouquets. We have health issues. They ( workers ) are in Santo 15. ( an area in Croix-des-Bouquets )\n"
-        "3. Good evening, is the earthquake end?\n"
-        "4. People from Dal blocked since Wednesday in Carrefour, we having water shortage, food and medical assistance."
-    )
+        # Get user input
+        user_input = st.text_input("Enter a message:")
 
-    classify_button = st.button("Classify")
-    # Display the examples in a text area
+        # Examples as a text area
+        example_inputs = (
+            "1. Please, we need tents and water. We are in Silo, Thank you!\n"
+            "2. I am in Croix-des-Bouquets. We have health issues. They ( workers ) are in Santo 15. ( an area in Croix-des-Bouquets )\n"
+            "3. Good evening, is the earthquake end?\n"
+            "4. People from Dal blocked since Wednesday in Carrefour, we having water shortage, food and medical assistance."
+        )
 
-    # Add a "Classify" button
-    if classify_button:
-        if not user_input:
-            st.warning("Please enter a message.")
-        else:
-            # Preprocess the user input using the tokenize function
-            processed_input = " ".join(tokenize(user_input))
+        classify_button = st.button("Classify")
 
-            # Use the loaded model to predict categories
-            predicted_categories = loaded_model.predict([processed_input])
-
-            # Display the predicted categories in a table
-
-            st.subheader("Predicted categories:")
-            if any(predicted_categories[0]):
-                selected_categories = [
-                    category_names[i]
-                    for i in range(len(predicted_categories[0]))
-                    if predicted_categories[0][i] == 1
-                ]
-
-                # Create a table with one column for predicted categories
-                table_data = {"Predicted Categories": selected_categories}
-                st.table(table_data)
+        if classify_button:
+            if not user_input:
+                st.warning("Please enter a message.")
             else:
-                st.warning("No categories predicted for the given input.")
+                processed_input = " ".join(tokenize(user_input))
+                predicted_categories = loaded_model.predict([processed_input])
 
-    st.text_area("Sample input examples:", value=example_inputs, height=200)
+                st.subheader("Predicted categories:")
+                if any(predicted_categories[0]):
+                    selected_categories = [
+                        category_names[i]
+                        for i in range(len(predicted_categories[0]))
+                        if predicted_categories[0][i] == 1
+                    ]
 
-    # Add footer
-    st.markdown("<br><br> <br><br> <br><br>", unsafe_allow_html=True)  # Adding space
+                    table_data = {"Predicted Categories": selected_categories}
+                    st.table(table_data)
+                else:
+                    st.warning("No categories predicted for the given input.")
 
-    # Rerun the app every 5 hours
-    st.rerun()
-    time.sleep(5 * 60 * 60)  # Sleep for 5 hours (in seconds)
+        st.text_area("Sample input examples:", value=example_inputs, height=200)
+
+        # Add footer
+        st.markdown("<br><br> <br><br> <br><br>", unsafe_allow_html=True)  # Adding space
+        st.markdown("Made by Kapil Wankhede (Sanghamitra Tech)")
 
 
 if __name__ == "__main__":
-    main()
+    while True:
+        main()
+        time.sleep(5 * 60 * 60)  # Sleep for 5 hours (in seconds)
