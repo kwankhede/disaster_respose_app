@@ -14,30 +14,54 @@ with open("models/classifier.pkl", "rb") as model_file:
     loaded_model = pickle.load(model_file)
 
 category_names = [
-    "related", "request", "offer", "aid_related", "medical_help",
-    "medical_products", "search_and_rescue", "security", "military",
-    "child_alone", "water", "food", "shelter", "clothing", "money",
-    "missing_people", "refugees", "death", "other_aid",
-    "infrastructure_related", "transport", "buildings", "electricity",
-    "tools", "hospitals", "shops", "aid_centers", "other_infrastructure",
-    "weather_related", "floods", "storm", "fire", "earthquake", "cold",
-    "other_weather", "direct_report",
+    "related",
+    "request",
+    "offer",
+    "aid_related",
+    "medical_help",
+    "medical_products",
+    "search_and_rescue",
+    "security",
+    "military",
+    "child_alone",
+    "water",
+    "food",
+    "shelter",
+    "clothing",
+    "money",
+    "missing_people",
+    "refugees",
+    "death",
+    "other_aid",
+    "infrastructure_related",
+    "transport",
+    "buildings",
+    "electricity",
+    "tools",
+    "hospitals",
+    "shops",
+    "aid_centers",
+    "other_infrastructure",
+    "weather_related",
+    "floods",
+    "storm",
+    "fire",
+    "earthquake",
+    "cold",
+    "other_weather",
+    "direct_report",
 ]
 
-# Function to check if 5 hours have passed
-@st.cache(ttl=60 * 60 * 5, suppress_st_warning=True)  # 60 seconds * 60 minutes * 5 hours
-def check_time():
-    return time.time()
-
 # Streamlit app
-@st.cache(ttl=60 * 60 * 5, suppress_st_warning=True)  # 60 seconds * 60 minutes * 5 hours
+@st.cache(ttl=60 * 60 * 5)  # 60 seconds * 60 minutes * 5 hours
 def main():
     # Load image
     image_path = "app/ai_kapil.png"
     st.image(image_path, use_column_width=True)
 
     # Problem statement
-    st.markdown("""
+    st.markdown(
+        """
         This app predicts categories for disaster-related messages using a trained machine learning model.
         Enter a message, and click the 'Classify' button to see predicted categories.
 
@@ -62,35 +86,38 @@ def main():
     )
 
     classify_button = st.button("Classify")
+    # Display the examples in a text area
 
-    # Check if 5 hours have passed, if yes, rerun the code
-    if check_time():
-        if classify_button:
-            if not user_input:
-                st.warning("Please enter a message.")
+    # Add a "Classify" button
+
+    if classify_button:
+        if not user_input:
+            st.warning("Please enter a message.")
+        else:
+            # Preprocess the user input using the tokenize function
+            processed_input = " ".join(tokenize(user_input))
+
+            # Use the loaded model to predict categories
+            predicted_categories = loaded_model.predict([processed_input])
+
+            # Display the predicted categories in a table
+
+            st.subheader("Predicted categories:")
+            if any(predicted_categories[0]):
+                selected_categories = [
+                    category_names[i]
+                    for i in range(len(predicted_categories[0]))
+                    if predicted_categories[0][i] == 1
+                ]
+
+                # Create a table with one column for predicted categories
+                table_data = {"Predicted Categories": selected_categories}
+                st.table(table_data)
+                # st.success("Categories: " + ", ".join(selected_categories))
             else:
-                # Preprocess the user input using the tokenize function
-                processed_input = " ".join(tokenize(user_input))
+                st.warning("No categories predicted for the given input.")
 
-                # Use the loaded model to predict categories
-                predicted_categories = loaded_model.predict([processed_input])
-
-                # Display the predicted categories in a table
-                st.subheader("Predicted categories:")
-                if any(predicted_categories[0]):
-                    selected_categories = [
-                        category_names[i]
-                        for i in range(len(predicted_categories[0]))
-                        if predicted_categories[0][i] == 1
-                    ]
-
-                    # Create a table with one column for predicted categories
-                    table_data = {"Predicted Categories": selected_categories}
-                    st.table(table_data)
-                else:
-                    st.warning("No categories predicted for the given input.")
-
-        st.text_area("Sample input examples:", value=example_inputs, height=200)
+    st.text_area("Sample input examples:", value=example_inputs, height=200)
 
     # Add footer
     st.markdown("<br><br> <br><br> <br><br>", unsafe_allow_html=True)  # Adding space
