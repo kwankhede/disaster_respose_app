@@ -53,7 +53,7 @@ category_names = [
 ]
 
 # Streamlit app
-@st.cache(ttl=60 * 60 * 5, suppress_st_warning=True)  # 60 seconds * 60 minutes * 5 hours
+@st.cache(ttl=60 * 60 * 5, suppress_st_warning=True, allow_output_mutation=True)
 def main():
     # Get user input
     user_input = st.text_input("Enter a message:")
