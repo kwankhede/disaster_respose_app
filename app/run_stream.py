@@ -125,4 +125,4 @@ if __name__ == "__main__":
 
     # Add footer
     st.markdown("<br><br> <br><br> <br><br>", unsafe_allow_html=True)  # Adding space
-    st.markdown("Made by Kapil Wankhede (Sanghamitra Tech)")
+    st.markdown("Made by Kapil Wankhede (Sanghamitra Tech)") 
