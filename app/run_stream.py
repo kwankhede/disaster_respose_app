@@ -118,10 +118,9 @@ def main():
 
     # Add footer
     st.markdown("<br><br> <br><br> <br><br>", unsafe_allow_html=True)  # Adding space
-    st.markdown("Made by Kapil Wankhede (Sanghamitra Tech)")
 
     # Rerun the app every 5 hours
-    st.experimental_rerun()
+    st.rerun()
     time.sleep(5 * 60 * 60)  # Sleep for 5 hours (in seconds)
 
 
