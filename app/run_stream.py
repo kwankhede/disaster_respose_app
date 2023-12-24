@@ -68,6 +68,9 @@ def main():
         "4. People from Dal blocked since Wednesday in Carrefour, we having water shortage, food and medical assistance."
     )
 
+    # Display the user input
+    st.text(f"User Input: {user_input}")
+
     # Display the examples in a text area
     st.text_area("Sample input examples:", value=example_inputs, height=200)
 
