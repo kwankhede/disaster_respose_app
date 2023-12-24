@@ -32,6 +32,24 @@ def check_time():
 # Streamlit app
 @st.cache(ttl=60 * 60 * 5, suppress_st_warning=True)  # 60 seconds * 60 minutes * 5 hours
 def main():
+    # Load image
+    image_path = "app/ai_kapil.png"
+    st.image(image_path, use_column_width=True)
+
+    # Problem statement
+    st.markdown("""
+        This app predicts categories for disaster-related messages using a trained machine learning model.
+        Enter a message, and click the 'Classify' button to see predicted categories.
+
+        ### How It Works:
+        - **Enter a Message:** Type a message related to disaster response.
+        - **Click 'Classify':** The app uses a trained model to predict relevant categories.
+        - **View Predictions:** See the predicted categories based on the input message.
+
+        The goal is to assist disaster response teams in quickly assessing and acting upon incoming messages.
+        """
+    )
+
     # Get user input
     user_input = st.text_input("Enter a message:")
 
