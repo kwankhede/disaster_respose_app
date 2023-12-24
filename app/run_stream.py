@@ -59,10 +59,19 @@ def main():
     user_input = st.text_input("Enter a message:")
 
     classify_button = st.button("Classify")
+
+    # Define example_inputs here
+    example_inputs = (
+        "1. Please, we need tents and water. We are in Silo, Thank you!\n"
+        "2. I am in Croix-des-Bouquets. We have health issues. They ( workers ) are in Santo 15. ( an area in Croix-des-Bouquets )\n"
+        "3. Good evening, is the earthquake end?\n"
+        "4. People from Dal blocked since Wednesday in Carrefour, we having water shortage, food and medical assistance."
+    )
+
     # Display the examples in a text area
+    st.text_area("Sample input examples:", value=example_inputs, height=200)
 
     # Add a "Classify" button
-
     if classify_button:
         if not user_input:
             st.warning("Please enter a message.")
@@ -74,7 +83,6 @@ def main():
             predicted_categories = loaded_model.predict([processed_input])
 
             # Display the predicted categories in a table
-
             st.subheader("Predicted categories:")
             if any(predicted_categories[0]):
                 selected_categories = [
@@ -88,8 +96,6 @@ def main():
                 st.table(table_data)
             else:
                 st.warning("No categories predicted for the given input.")
-
-    st.text_area("Sample input examples:", value=example_inputs, height=200)
 
 
 if __name__ == "__main__":
