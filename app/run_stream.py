@@ -77,12 +77,12 @@ def main():
             """
         )
 
-        # Get user input
-        user_input = st.text_input("**Enter a message:**")
+        # Get user input with a box around it
+        user_input = st.text_input("**Enter a message:**", key="user_input", help="Type your message here.")
 
         # Examples as a text area
         example_inputs = (
-            "1. <div style='border: 2px solid red; padding: 10px;'>Please, we need tents and water. We are in Silo, Thank you!</div>\n"
+            "1. Please, we need tents and water. We are in Silo, Thank you!\n"
             "2. I am in Croix-des-Bouquets. We have health issues. They ( workers ) are in Santo 15. ( an area in Croix-des-Bouquets )\n"
             "3. Good evening, is the earthquake end?\n"
             "4. People from Dal blocked since Wednesday in Carrefour, we having water shortage, food and medical assistance."
