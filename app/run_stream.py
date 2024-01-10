@@ -78,11 +78,11 @@ def main():
         )
 
         # Get user input
-        user_input = st.text_input("**Enter a message :**")
+        user_input = st.text_input("**Enter a message:**")
 
         # Examples as a text area
         example_inputs = (
-            "1. Please, we need tents and water. We are in Silo, Thank you!\n"
+            "1. <div style='border: 2px solid red; padding: 10px;'>Please, we need tents and water. We are in Silo, Thank you!</div>\n"
             "2. I am in Croix-des-Bouquets. We have health issues. They ( workers ) are in Santo 15. ( an area in Croix-des-Bouquets )\n"
             "3. Good evening, is the earthquake end?\n"
             "4. People from Dal blocked since Wednesday in Carrefour, we having water shortage, food and medical assistance."
@@ -110,7 +110,11 @@ def main():
                 else:
                     st.warning("No categories predicted for the given input.")
 
-        st.text_area("**Sample input examples:**", value=example_inputs, height=200)
+        st.markdown(
+            "**Sample input examples:**",
+            unsafe_allow_html=True,
+        )
+        st.markdown(example_inputs, unsafe_allow_html=True)
 
         # Add footer
         st.markdown("<br><br> <br><br> <br><br>", unsafe_allow_html=True)  # Adding space
