@@ -87,6 +87,8 @@ def main():
         # Get user input with a box around it
         user_input = st.text_input("", key="user_input", help="Type your message here.")
 
+        st.markdown("<br> ", unsafe_allow_html=True)  # Adding space
+
 
         # Examples as a text area
         example_inputs = (
