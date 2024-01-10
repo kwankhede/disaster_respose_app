@@ -78,7 +78,11 @@ def main():
         )
 
         # Get user input with a box around it
-        user_input = st.text_input("**Enter a message:**", key="user_input", help="Type your message here.")
+        user_input = st.text_input(
+        st.markdown("<span style='color:red; font-size:20px; font-weight:bold;'>Enter a message:</span>", unsafe_allow_html=True),
+        key="user_input",
+        help="Type your message here."
+)
 
         # Examples as a text area
         example_inputs = (
