@@ -78,6 +78,7 @@ def main():
         )
 
         # Get user input with a box around it
+        st.markdown("<br><br> <br><br> <br><br>", unsafe_allow_html=True)  # Adding space
         # Custom styling for the label
         st.markdown("<span style='color:red; font-size:40px; font-weight:bold;'>Enter a message:</span>", unsafe_allow_html=True)
 
