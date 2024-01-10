@@ -66,7 +66,7 @@ def main():
         st.markdown(
             """
             This app predicts categories for disaster-related messages using a trained machine learning model.
-            Enter a message, and click the 'Classify' button to see predicted categories.
+            **Enter a message**, and click the 'Classify' button to see predicted categories.
 
             ### How It Works:
             - **Enter a Message:** Type a message related to disaster response.
@@ -78,7 +78,7 @@ def main():
         )
 
         # Get user input
-        user_input = st.text_input("Enter a message:")
+        user_input = st.text_input("**Enter a message:**")
 
         # Examples as a text area
         example_inputs = (
@@ -88,7 +88,7 @@ def main():
             "4. People from Dal blocked since Wednesday in Carrefour, we having water shortage, food and medical assistance."
         )
 
-        classify_button = st.button("Classify")
+        classify_button = st.button("**Classify**")
 
         if classify_button:
             if not user_input:
@@ -110,11 +110,11 @@ def main():
                 else:
                     st.warning("No categories predicted for the given input.")
 
-        st.text_area("Sample input examples:", value=example_inputs, height=200)
+        st.text_area("**Sample input examples:**", value=example_inputs, height=200)
 
         # Add footer
         st.markdown("<br><br> <br><br> <br><br>", unsafe_allow_html=True)  # Adding space
-        st.markdown("Made by Kapil Wankhede (Sanghamitra Tech)")
+        st.markdown("**Made by Kapil Wankhede (Sanghamitra Tech)**", unsafe_allow_html=True)
 
 
 if __name__ == "__main__":
