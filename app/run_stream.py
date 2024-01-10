@@ -78,7 +78,7 @@ def main():
         )
 
         # Get user input
-        user_input = st.text_input("**Enter a message:**")
+        user_input = st.text_input("**Enter a message :**")
 
         # Examples as a text area
         example_inputs = (
